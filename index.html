@@ -1300,57 +1300,109 @@ footer { background: #030305; border-top: 1px solid var(--border); padding: 80px
 
 
 <!-- PAYMENT MODAL -->
-<div id="paymentModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);align-items:center;justify-content:center;">
-  <div style="background:#0f1117;border:1px solid rgba(255,255,255,0.12);border-radius:24px;padding:48px 40px;max-width:480px;width:90%;position:relative;box-shadow:0 40px 100px rgba(0,0,0,0.8);">
-    
+<div id="paymentModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.78);backdrop-filter:blur(14px);align-items:center;justify-content:center;font-family:var(--font-sans);">
+  <div class="ol-checkout" style="background:#0B0D11;border:1px solid rgba(255,255,255,0.07);border-radius:20px;max-width:480px;width:min(480px, calc(100vw - 32px));position:relative;box-shadow:0 30px 80px rgba(0,0,0,0.6);padding:30px;">
+
     <!-- Close button -->
-    <button onclick="closePayment()" style="position:absolute;top:18px;right:18px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#9ca3af;width:34px;height:34px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">×</button>
+    <button onclick="closePayment()" aria-label="Close" style="position:absolute;top:14px;right:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#8A93A3;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;transition:background .15s ease, color .15s ease;" onmouseover="this.style.background='rgba(255,255,255,0.08)';this.style.color='#E6E9EE';" onmouseout="this.style.background='rgba(255,255,255,0.04)';this.style.color='#8A93A3';">×</button>
 
-    <!-- Header -->
-    <div style="margin-bottom:8px;font-size:11px;font-weight:700;color:#00e5a0;letter-spacing:0.12em;text-transform:uppercase;">// CHECKOUT</div>
-    <div id="modalPlanName" style="font-size:24px;font-weight:900;color:#fff;letter-spacing:-0.03em;margin-bottom:4px;">Monthly Plan</div>
-    <div id="modalPlanPrice" style="font-size:15px;color:#6b7280;margin-bottom:36px;">$35 / month</div>
+    <!-- Heading -->
+    <div style="text-align:center;font-size:18px;font-weight:600;color:#E6E9EE;letter-spacing:-0.01em;margin-bottom:18px;">Checkout</div>
 
-    <!-- Divider -->
-    <div style="height:1px;background:rgba(255,255,255,0.07);margin-bottom:28px;"></div>
+    <!-- Plan -->
+    <div style="text-align:center;margin-bottom:18px;">
+      <div id="modalPlanName" style="font-size:20px;font-weight:700;color:#ffffff;letter-spacing:-0.02em;margin-bottom:4px;">3 Month Plan</div>
+      <div id="modalPlanPriceSub" style="font-size:12px;color:#5B6472;font-variant-numeric:tabular-nums;margin-top:3px;">$31.50/mo equivalent</div>
+    </div>
 
-    <!-- Payment method label -->
-    <div style="font-size:11px;font-weight:600;color:#6b7280;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;">Select Payment Method</div>
-
-    <!-- UPI Button -->
-    <a id="upiBtn" href="#" target="_blank" onclick="if(typeof window!=='undefined'&&typeof window.fbq==='function'){window.fbq('track','InitiateCheckout');}" style="display:flex;align-items:center;gap:16px;padding:18px 22px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;margin-bottom:12px;cursor:pointer;transition:all .2s;text-decoration:none;" onmouseover="this.style.borderColor='rgba(0,229,160,0.5)';this.style.background='rgba(0,229,160,0.06)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.background='rgba(255,255,255,0.03)'">
-      <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🇮🇳</div>
-      <div>
-        <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:2px;">UPI</div>
-        <div style="font-size:12px;color:#6b7280;">GPay, PhonePe, Paytm & more</div>
+    <!-- Price summary -->
+    <div style="border:1px solid rgba(255,255,255,0.09);border-radius:12px;overflow:hidden;margin-bottom:22px;">
+      <div id="rowSubtotal" style="display:flex;justify-content:space-between;padding:14px 16px;font-size:13px;color:#8A93A3;">
+        <span>Subtotal</span>
+        <span id="modalSubtotal" style="color:#E6E9EE;font-variant-numeric:tabular-nums;">$89</span>
       </div>
-      <div style="margin-left:auto;font-size:12px;color:#00e5a0;font-weight:600;">→</div>
+      <div style="display:flex;justify-content:space-between;padding:16px 16px;background:rgba(255,255,255,0.015);border-top:1px solid rgba(255,255,255,0.05);">
+        <span style="font-size:13px;font-weight:600;color:#8A93A3;letter-spacing:0.02em;">Total</span>
+        <span id="modalTotal" style="font-size:15px;font-weight:700;color:#ffffff;font-variant-numeric:tabular-nums;">$89</span>
+      </div>
+    </div>
+
+    <!-- Section label -->
+    <div style="font-size:11px;font-weight:600;color:#737b89;letter-spacing:0.10em;text-transform:uppercase;margin-bottom:10px;">Payment method</div>
+
+    <!-- UPI -->
+    <a id="upiBtn" href="#" target="_blank" onclick="if(typeof window!=='undefined'&&typeof window.fbq==='function'){window.fbq('track','InitiateCheckout');}" class="ol-pay">
+      <span class="ol-pay-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M7 12h10M12 7v10"/></svg>
+      </span>
+      <span>UPI</span>
     </a>
 
-    <!-- Card Button -->
-    <a id="cardBtn" href="#" target="_blank" onclick="if(typeof window!=='undefined'&&typeof window.fbq==='function'){window.fbq('track','InitiateCheckout');}" style="display:flex;align-items:center;gap:16px;padding:18px 22px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;margin-bottom:12px;cursor:pointer;transition:all .2s;text-decoration:none;" onmouseover="this.style.borderColor='rgba(0,229,160,0.5)';this.style.background='rgba(0,229,160,0.06)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.background='rgba(255,255,255,0.03)'">
-      <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">💳</div>
-      <div>
-        <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:2px;">Credit / Debit Card</div>
-        <div style="font-size:12px;color:#6b7280;">Visa, Mastercard, Amex</div>
-      </div>
-      <div style="margin-left:auto;font-size:12px;color:#00e5a0;font-weight:600;">→</div>
+    <!-- Card -->
+    <a id="cardBtn" href="#" target="_blank" onclick="if(typeof window!=='undefined'&&typeof window.fbq==='function'){window.fbq('track','InitiateCheckout');}" class="ol-pay">
+      <span class="ol-pay-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/></svg>
+      </span>
+      <span>Card</span>
     </a>
 
-    <!-- Crypto Button -->
-    <a id="cryptoBtn" href="#" target="_blank" onclick="if(typeof window!=='undefined'&&typeof window.fbq==='function'){window.fbq('track','InitiateCheckout');}" style="display:flex;align-items:center;gap:16px;padding:18px 22px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:14px;margin-bottom:28px;cursor:pointer;transition:all .2s;text-decoration:none;" onmouseover="this.style.borderColor='rgba(0,229,160,0.5)';this.style.background='rgba(0,229,160,0.06)'" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.background='rgba(255,255,255,0.03)'">
-      <div style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">₿</div>
-      <div>
-        <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:2px;">Crypto</div>
-        <div style="font-size:12px;color:#6b7280;">BTC, ETH, USDT & more</div>
-      </div>
-      <div style="margin-left:auto;font-size:12px;color:#00e5a0;font-weight:600;">→</div>
+    <!-- Crypto -->
+    <a id="cryptoBtn" href="#" target="_blank" onclick="if(typeof window!=='undefined'&&typeof window.fbq==='function'){window.fbq('track','InitiateCheckout');}" class="ol-pay">
+      <span class="ol-pay-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 8h5a2.5 2.5 0 0 1 0 5H9V8zM9 13h6a2.5 2.5 0 0 1 0 5H9v-5zM10 6v2M10 16v2M14 6v2M14 16v2"/></svg>
+      </span>
+      <span>Crypto</span>
     </a>
 
-    <!-- Footer note -->
-    <div style="text-align:center;font-size:11px;color:rgba(107,114,128,0.5);">🔒 Secure checkout · Cancel anytime</div>
   </div>
 </div>
+
+<style>
+.ol-checkout { font-family: var(--font-sans); }
+
+.ol-pay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  margin-bottom: 8px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #E6E9EE;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease, color 150ms ease;
+}
+.ol-pay:last-of-type { margin-bottom: 0; }
+.ol-pay:hover {
+  border-color: rgba(0,229,160,0.35);
+  background: rgba(255,255,255,0.04);
+}
+.ol-pay-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #8A93A3;
+  transition: color 150ms ease;
+}
+.ol-pay:hover .ol-pay-icon { color: var(--teal); }
+.ol-pay:hover { color: #ffffff; }
+
+@media (max-width: 480px) {
+  .ol-checkout {
+    width: calc(100vw - 24px) !important;
+    padding: 24px !important;
+    border-radius: 18px !important;
+  }
+  .ol-pay { height: 48px; }
+}
+</style>
 
 
 <footer>
@@ -1979,7 +2031,25 @@ setInterval(()=>{ if(!paused) goTo(current + 1); }, 2000);
 // Payment Modal
 function openPayment(plan, price) {
   document.getElementById('modalPlanName').textContent = plan;
-  document.getElementById('modalPlanPrice').textContent = price;
+
+  // price strings from pricing buttons:
+  //  Monthly: "$35 / month"
+  //  3 Month: "$89 / 3 months · $31.50/mo"
+  //  Annual:  "$294 / year · $24.50/mo"
+  const totalMatch  = String(price).match(/^\$\s*(\d+(?:\.\d+)?)/);
+  const equivMatch  = String(price).match(/·\s*(\$\s*\d+(?:\.\d+)?)\s*\/\s*(\w+)/);
+
+  const totalVal   = totalMatch ? totalMatch[1] : '';
+  const monthlyVal = equivMatch ? equivMatch[1].replace(/\s/g,'') : null;
+
+  const beforeDot  = String(price).split('·')[0].trim();
+  const periodPart = beforeDot.replace(/^\$\s*\d+(?:\.\d+)?\s*\/\s*/, '').trim();
+  const totalLine  = '$' + totalVal + ' / ' + periodPart;
+
+  document.getElementById('modalPlanPriceSub').textContent = monthlyVal ? monthlyVal + '/mo equivalent' : '';
+  document.getElementById('modalSubtotal').textContent     = totalLine;
+  document.getElementById('modalTotal').textContent        = totalLine;
+
   const links = {
     'Monthly Plan': {
       upi: 'https://payments.cashfree.com/forms/monthly-35',
